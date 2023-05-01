@@ -82,6 +82,29 @@ const getJobID = (req, res) => {
         });
 };
 
+const getSearch = async (req, res) => {
+    const { position, contract, location, company } = req.query;
+    try {
+        const query = {};
+        if (position) {
+            query.position = { $regex: position, $options: 'i' };
+        }
+        if (contract) {
+            query.contract = contract;
+        }
+        if (location) {
+            query.location = { $regex: location, $options: 'i' };
+        }
+        if (company) {
+            query.company = { $regex: company, $options: 'i' };
+        }
+        const response = await Job.find(query);
+        res.json(response);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
 
 
 module.exports = {
@@ -90,4 +113,5 @@ module.exports = {
     updateJob,
     deleteJob,
     getJobID,
+    getSearch,
 };

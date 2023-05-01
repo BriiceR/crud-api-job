@@ -19,8 +19,8 @@ const JobSchema = new mongoose.Schema({
         required: true,
     },
     positionAt: {
-        type: Date,
-        default: Date.now,
+        type: String,
+        required: true,
     },
     contract: {
         type: String,
